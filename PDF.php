@@ -17,13 +17,15 @@ class PDF extends PDF_Diag {
 		}
 	}
 	
-	function Cover() {
+	function Cover($district) {
 		$this->SetTextColor(000,100,231);
 		$this->SetFont('Times','',22);
 		$this->SetY(80);
 		//$this->Cell(0, .25, "National Volunteer Secretariat,Sri Lanka", '0', 0, "C");
 		$this->SetX(25.4);
-		$this->Cell(0, 2, "National Volunteer Secretariat,Sri Lanka", '0', 0, "C");
+		//$this->Cell(0, 2, "National Volunteer Secretariat,Sri Lanka", '0', 0, "C");
+		$this->SetX(25.4);
+		$this->Cell(0, 0, $district.' District Report', '0', 0, "C");
 	}
 	
 	function Table($topics, $data)
