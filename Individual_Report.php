@@ -1,30 +1,8 @@
 <?php
-			//require('fpdf17\fpdf.php');
-			//require('PDF.php');
 			require('pdf.php');
 			
-			/*
-			
-			$graph = new PHPGraphLib(400,300);
-			$data = array("Alex"=>99, "Mary"=>98, "Joan"=>70, "Ed"=>90);
-			$graph->addData($data);
-			$graph->setTitle("Test Scores");
-			$graph->setTextColor("blue");
-			$graph->createGraph();
-			*/
-			//require('phpgraphlib_v231\phpgraphlib.php');
-			/*
-				include('lib\phpgraphlib_v231\phpgraphlib.php');
-				$graph = new PHPGraphLib(500,350);
-				$data = array(12124, 5535, 43373, 22223, 90432, 23332, 15544, 24523,
-				 32778, 38878, 28787, 33243, 34832, 32302);
-				$graph->addData($data);
-				$graph->setTitle('Widgets Produced');
-				$graph->setGradient('red', 'maroon');
-				//$graph->createGraph();
-			*/
-			
-			// Create connection
+			session_start();
+			$volID = $_POST['volID'];
 			$con=mysqli_connect("localhost","root","","taxi");
 
 			// Check connection
@@ -43,7 +21,13 @@
 			$pdf->SetMargins(25.4,25.4,25.4);
 			$pdf->AddPage();
 			
-			$pdf->Cover();
+			$pdf->SetTextColor(000,100,231);
+			$pdf->SetFont('Times','',22);
+			$pdf->SetXY(25.4,25);
+			$pdf->Cell(0, 0, 'Individual Report for '.$volID, '0', 0, "C");
+			$pdf->SetY($pdf->GetY() + 10);
+			
+			//$pdf->Cover($district);
 			$pdf->AddPage();
 			$pdf->SetY(25.4);
 			$pdf->Table($topics, $result);
@@ -74,7 +58,7 @@
 			$pdf->PieChart(100, 35, $data, '%l (%p)', array($col1, $col2, $col3));
 			$pdf->SetXY($valX, $valY + 40);
 			
-			//bar chart
+			/*//bar chart
 			$pdf->SetFont('Arial', 'BIU', 12);
 			$pdf->Cell(0, 5, '2 - Bar diagram', 0, 1);
 			$pdf->Ln(8);
@@ -83,7 +67,7 @@
 			$pdf->BarDiagram(200, 30, $data, '%l : %v (%p)', array(255, 175, 100));
 			$pdf->SetXY($valX, $valY + 80);
 			
-			
+			*/
 			
 			//ob_end_clean();
 			ob_start();

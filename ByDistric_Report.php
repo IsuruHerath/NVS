@@ -2,43 +2,11 @@
 <html>
 <body>
 <?php
-			//require('fpdf17\fpdf.php');
-			//require('PDF.php');
+			
 			require('pdf.php');
-			
-			/*
-			
-			$graph = new PHPGraphLib(400,300);
-			$data = array("Alex"=>99, "Mary"=>98, "Joan"=>70, "Ed"=>90);
-			$graph->addData($data);
-			$graph->setTitle("Test Scores");
-			$graph->setTextColor("blue");
-			$graph->createGraph();
-			*/
-			//require('phpgraphlib_v231\phpgraphlib.php');
-			/*
-				include('lib\phpgraphlib_v231\phpgraphlib.php');
-				$graph = new PHPGraphLib(500,350);
-				$data = array(12124, 5535, 43373, 22223, 90432, 23332, 15544, 24523,
-				 32778, 38878, 28787, 33243, 34832, 32302);
-				$graph->addData($data);
-				$graph->setTitle('Widgets Produced');
-				$graph->setGradient('red', 'maroon');
-				//$graph->createGraph();
-			*/
-			
-			// Create connection
-			
-			session_start();
-
-			echo 'Welcome to page #2<br />';
-
-			echo $_SESSION['district']; // distric selected
-			
-			$district = $_SESSION['district'];
-
-			// You may want to use SID here, like we did in page1.php
-			echo '<br /><a href="index.php">previous</a>';
+			session_start();		
+			$district = $_POST['district'];
+			$proffession = $_POST['proffession'];
 			
 			
 			$con=mysqli_connect("localhost","root","","taxi");
@@ -58,12 +26,16 @@
 			//$pdf = new PDF_Diag();
 			$pdf->SetMargins(25.4,25.4,25.4);
 			$pdf->AddPage();
-			
-			$pdf->Cover($district);
+			$pdf->SetTextColor(000,100,231);
+			$pdf->SetFont('Times','',22);
+			$pdf->SetXY(25.4,25);
+			//$pdf->SetX(25.4);
+			$pdf->Cell(0, 0, $district.' District Report by '.$proffession, '0', 0, "C");
+			//$pdf->Cover($district);
 			
 			//$pdf->Cell(-20, 30, $_SESSION['district']);
-			$pdf->AddPage();
-			$pdf->SetY(25.4);
+			//$pdf->AddPage();
+			$pdf->SetY($pdf->GetY() + 10);
 			$pdf->Table($topics, $result);
 			
 			//pie-chart

@@ -5,25 +5,23 @@ class PDF extends PDF_Diag {
 			 
 	function Header() {
 		//family, style, size
-		if($this->PageNo()!=1){
+		//if($this->PageNo()!=1){
 			$this->SetTextColor(100,100,100);
 			$this->SetFont('Times','',8);
 			$this->SetY(0);
 			//width, height, text, border, ln, align
-			$this->Cell(0, 25, "National Volunteer Secretariat ", '0', 0, "L");
-			$this->Cell(0, 25, $this->PageNo()-1, '0', 0, "R");
+			$this->Cell(0, 25, "National Volunteering Secretariat ", '0', 0, "L");
+			$this->Cell(0, 25, $this->PageNo(), '0', 0, "R");
 			//reset Y
 			$this->SetY(1);
-		}
+		//}
 	}
 	
 	function Cover($district) {
 		$this->SetTextColor(000,100,231);
 		$this->SetFont('Times','',22);
 		$this->SetY(80);
-		//$this->Cell(0, .25, "National Volunteer Secretariat,Sri Lanka", '0', 0, "C");
 		$this->SetX(25.4);
-		//$this->Cell(0, 2, "National Volunteer Secretariat,Sri Lanka", '0', 0, "C");
 		$this->SetX(25.4);
 		$this->Cell(0, 0, $district.' District Report', '0', 0, "C");
 	}

@@ -1,28 +1,8 @@
 <?php
-			//require('fpdf17\fpdf.php');
-			//require('PDF.php');
+			
 			require('pdf.php');
 			
-			/*
 			
-			$graph = new PHPGraphLib(400,300);
-			$data = array("Alex"=>99, "Mary"=>98, "Joan"=>70, "Ed"=>90);
-			$graph->addData($data);
-			$graph->setTitle("Test Scores");
-			$graph->setTextColor("blue");
-			$graph->createGraph();
-			*/
-			//require('phpgraphlib_v231\phpgraphlib.php');
-			/*
-				include('lib\phpgraphlib_v231\phpgraphlib.php');
-				$graph = new PHPGraphLib(500,350);
-				$data = array(12124, 5535, 43373, 22223, 90432, 23332, 15544, 24523,
-				 32778, 38878, 28787, 33243, 34832, 32302);
-				$graph->addData($data);
-				$graph->setTitle('Widgets Produced');
-				$graph->setGradient('red', 'maroon');
-				//$graph->createGraph();
-			*/
 			
 			// Create connection
 			$con=mysqli_connect("localhost","root","","taxi");
