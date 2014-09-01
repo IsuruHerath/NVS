@@ -1,23 +1,29 @@
 <?php
 			require('pdf.php');
+			require('DBConnector.php');
 			
 			session_start();
 			$volID = $_POST['volID'];
-			$con=mysqli_connect("localhost","root","","taxi");
-
-			// Check connection
-			if (mysqli_connect_errno()) {
-			  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-			}
 			
-			$result = mysqli_query($con,"SELECT * FROM daily_income");
+			$query = "SELECT * FROM Personal_Details where ID = '".$volID."'";
+			$connector = new DBConnector();
+			$result = $connector->getData($query);
+			
+			$name;
+			$id;
+			$contact;
+			$district;
+			$opportunitiesTaken;
+			$feedbacks;
+			
+			//$result = mysqli_query($con,"SELECT * FROM Personal_Details where ID = '".$volID."'");
+			$row = mysqli_fetch_array($result);
 			$topics = array("year","month","date","income");
-			mysqli_close($con);
-			echo "done<br>";
+			
 			
 			//orientation, units, size
 			$pdf=new PDF("P","mm","A4");
-			//$pdf = new PDF_Diag();
+			
 			$pdf->SetMargins(25.4,25.4,25.4);
 			$pdf->AddPage();
 			
@@ -26,17 +32,24 @@
 			$pdf->SetXY(25.4,25);
 			$pdf->Cell(0, 0, 'Individual Report for '.$volID, '0', 0, "C");
 			$pdf->SetY($pdf->GetY() + 10);
+			$pdf->SetTextColor(000,000,000);
+			$pdf->SetFont('Times','',12);
+			$pdf->Cell(0, 0, 'Name : '.$row['Full_Name'], '0', 0, "L");
+			$pdf->SetY($pdf->GetY() + 10);
+			$pdf->Cell(0, 0, 'ID_No : '.$row['ID'], '0', 0, "L");
+			$pdf->SetY($pdf->GetY() + 10);
+			$pdf->Cell(0, 0, 'District : '.$row['District'], '0', 0, "L");
 			
 			//$pdf->Cover($district);
 			$pdf->AddPage();
 			$pdf->SetY(25.4);
-			$pdf->Table($topics, $result);
+			//$pdf->Table($topics, $result);
 			
 			//pie-chart
 			$pdf->SetFont('Arial', 'BIU', 12);
 			$pdf->Cell(0, 5, '1 - Pie chart', 0, 1);
 			$pdf->Ln(8);
-			$data = array('Men' => 1510, 'Women' => 1610, 'Children' => 1400);
+			$data = array('Men' => 3000, 'Women' => 2000, 'Children' => 1000);
 			$pdf->SetFont('Arial', '', 10);
 			$valX = $pdf->GetX();
 			$valY = $pdf->GetY();

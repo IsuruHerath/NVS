@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Reports</title>
+		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 		<link rel="stylesheet" href="css/style.css">
 		<style>
 			.reportType{
@@ -41,8 +43,56 @@
 			}
 			
 		</style>
+		<style>
+			label { 
+				padding:0.4em 2em 0.4em 0; 
+			}
+			.toggle-btn-grp { 
+				margin:3px 0; 
+			}
+			.toggle-btn { 
+				text-align:centre; 
+				margin:5px 2px;
+				padding:0.4em 3em; 
+				color:#000; 
+				background-color:#FFF; 
+				border-radius:10px; 
+				display:inline-block; 
+				border:solid 1px #CCC; 
+				cursor:pointer;
+			}
+
+			.toggle-btn-grp.joint-toggle .toggle-btn { 
+				margin:5px 0; 
+				padding:0.4em 2em; 
+				border-radius:0;
+				border-right-color:white;
+			}
+			.toggle-btn-grp.joint-toggle .toggle-btn:first-child { 
+				margin-left:2px; 
+				border-radius: 10px 0px 0px 10px; 
+			}
+			.toggle-btn-grp.joint-toggle .toggle-btn:last-child { 
+				margin-right:2px;  
+				border-radius: 0px 10px 10px 0px;
+				border-right:solid 1px #CCC;
+			}
+
+
+			.toggle-btn:hover { 
+				border:solid 1px #a0d5dc !important; 
+				background:#f1fdfe;
+			}
+
+
+			.toggle-btn.success { 
+				background:lightgreen;
+				border:solid 1px green !important; 
+			}
+		</style>
 	</head>
       <body bgcolor="#0099FF">
+	  
 		<?php
 			include('header.php');
 		?>
@@ -58,7 +108,7 @@
 					'VO0023'
 					);
 				sort($VolID);
-				echo '<form method="post" action="Individual_Report.php">';
+				echo '<form method="post" action="CustomizeIndividualReport.php">';
 				echo '<section class = "container">';
 				echo '<div class = "dropdown">';
 				echo "<select name='volID' class='dropdown-select'>";
@@ -136,12 +186,22 @@
 					} 
 				echo '</select>&nbsp;';
 				echo '</div>';
+				
+				echo '<div class = "dropdown">';
+				echo "<select name='proffession' class='dropdown-select'>";
+				echo '<option '.$default.' value="">--Any Proffession--</option>\n';
+				foreach($proffessions as $valued) {
+						$default='';
+						echo '<option '.$default.' value="'.$valued.'">'.$valued.'</option>\n';
+					} 
+				echo '</select>&nbsp;';
+				echo '</div>';
+				
 				echo '</section>';
-				echo '</section>';
+				echo '<br/><br/><br/>';
 				echo '<input type="submit" name="submit" id="submit" value="Generate Report">          </input></form>';
 				echo '<br/><br/><br/>';
 				include('footer.php');
 			?>
-		</p>
-	</body>
+		</body>
 </html>

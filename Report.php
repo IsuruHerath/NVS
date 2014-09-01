@@ -1,21 +1,12 @@
 <?php
 			
 			require('pdf.php');
-			
-			
-			
-			// Create connection
-			$con=mysqli_connect("localhost","root","","taxi");
-
-			// Check connection
-			if (mysqli_connect_errno()) {
-			  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-			}
-			
-			$result = mysqli_query($con,"SELECT * FROM daily_income");
+			require('DBConnector.php');
+					
+			$query = "SELECT * FROM daily_income";
+			$connector = new DBConnector();
+			$result = $connector->getData($query);
 			$topics = array("year","month","date","income");
-			mysqli_close($con);
-			echo "done<br>";
 			
 			//orientation, units, size
 			$pdf=new PDF("P","mm","A4");
@@ -23,7 +14,7 @@
 			$pdf->SetMargins(25.4,25.4,25.4);
 			$pdf->AddPage();
 			
-			$pdf->Cover();
+			$pdf->Cover("K'gala");
 			$pdf->AddPage();
 			$pdf->SetY(25.4);
 			$pdf->Table($topics, $result);
