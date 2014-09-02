@@ -1,9 +1,22 @@
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Test Page</title>
     </head>
     <body>
         <?php
+        $attrbt = array(
+            'Personal Details',
+            'Contact Details',
+            'Profile',
+            'Education',
+            'Employment',
+            'Skills',
+            'Availability',
+            'Feedbacks',
+            'Referees'
+        );
         if (isset($_POST['submit'])) {
             if (!empty($_POST['check_list'])) {
 // Counting number of checked checkboxes.
@@ -30,11 +43,39 @@
         </div>
     </body>
     <script>
-        var input = Document.getElementById("input");
-        input.onchange = function(){
-            var text = input.value;
+        var input = document.getElementById("input");
+        var select = document.getElementById("select");
+        input.onkeypress = function(e){
+            select.innerHTML = "";
+            var t = "";
+            if(e.key.length == 1){
+               t = e.key; 
+            }
+            var text = input.value + t;
             var xhr = new XMLHttpRequest();
-            xhr.open("post", "searchVolunteers.php");
+            xhr.open("post", "searchVolunteers.php",false);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function(){
+                var result = JSON.parse(this.responseText);
+                //clear
+                //var result = ["mama","tuna","danushkaya","bathiya","pita ewun"];
+                for(var i in result){
+                    //add
+                    var option = document.createElement("option");
+                    option.text = result[i];
+                    option.value = result[i];
+                    option.onclick = function(){
+                        input.value = this.value;
+                    };
+                    try {
+                        select.add(option, null); //Standard
+                    }catch(error) {
+                        select.add(option); // IE only
+                    }
+                }
+            };
+            xhr.send("id="+text);
         };
     </script>
+    
 </html>
