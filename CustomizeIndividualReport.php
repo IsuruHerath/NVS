@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <link rel="stylesheet" href="css/switch/style.css">
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!--<script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
         <style>
             #vID{
                 text-align: center;
@@ -15,15 +15,19 @@
             #Attribute{
                 position: relative;
                 font-size: 20px;
-                left:400px;
+                left:450px;
             }
             #swt{
                 position: relative;
                 top: -32px;
             }
-            #combine{
+            #combineL{
                 position: relative;
-                left: 120px;
+                left: 90px;
+            }
+            #combineR{
+                position: relative;
+                left: 90px;
             }
             .imgBtn {
                 color: white;
@@ -36,7 +40,7 @@
                 width: 300px;
                 height: 75px;
                 border: 0px;
-                background-color: none;
+                background-color: white;
                 cursor: pointer;
                 outline: 0;
             }
@@ -45,20 +49,24 @@
             }
 
             .imgBtn:active{
+                font-size: 20px;
             }
         </style>
     </head>
     <body>
         <?php
-        include 'header.php';
-        $VolID = $_POST['volID'];
-        echo '</br>';
-        echo '<p id="vID">Volunteer ID : ' . $VolID . '</p></br></br>';
-        ?>
-        </br></br>
+        
 
-        <?php
-        echo '<form method="post" action="test.php">';
+        echo '<form method="post" action="Individual_Report.php" target="_blank">';
+        
+        include 'header.php';
+        $volID = $_POST['volID'];
+        session_start();
+        $_SESSION['volID'] = $volID;
+        echo '</br>';
+        echo '<p id="vID">Volunteer ID : ' . $volID . '</p></br></br>
+        </br></br>';
+        
         $attrbt = array(
             'Personal Details',
             'Contact Details',
@@ -72,12 +80,19 @@
         );
         $count = 0;
         foreach ($attrbt as $attr) {
-
-            echo '<div id="combine">
+            if($count%2 == 0){
+                $pos = "combineL";
+            }
+            else{
+                $pos = "combineR";
+            }
+            if($count == 0)
+                $val = "0";
+            echo '<div id="'.$pos.'">
                         <h1 id="Attribute">' . $attr . '</h1>
                             <div id ="swt" class="container">
                                 <label class="switch">
-                                  <input type="checkbox" class="switch-input" name="check_list[]" value="' . $count . '">
+                                  <input type="checkbox" class="switch-input" name="check_list[]" value="' . $count . '" checked>
                                   <span  class="switch-label" data-on="On" data-off="Off"></span>
                                   <span class="switch-handle"></span>
                                 </label>
@@ -87,7 +102,7 @@
 
 
 
-        echo '<input class="imgBtn" type="submit" name="submit" id="submit" value="Generate Report">          </input></form>';
+        echo '<input class="imgBtn" type="submit" name="submit" id="submit" value="View Report"/></form>';
         echo '</br></br>';
         include 'footer.php';
         ?>

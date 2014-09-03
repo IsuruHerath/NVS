@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Reports</title>
-        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+        <!--<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>-->
         <link rel="stylesheet" href="css/style.css">
         <style>
             .reportType{
@@ -108,16 +108,16 @@
         <p>
 
             <?php
-            echo '<form method="post" action="CustomizeIndividualReport.php">';
-            echo '<div id = "searchcontainer">
-            <input id = "searchinput" name = "volID" type = "" style = "width: 140px;">
-            <br>
-                <select size = "5" id = "select" name = "" style = "width: 146px; display : none;">
-                    
-                </select>
-            </div >';
-            
-            echo '<input type="submit" name="submit" id="submit" value="Generate Report">          </input></form>';
+            echo '<form method="post" action="CustomizeIndividualReport.php" onsubmit="return validate()">';
+            echo '<div class="container">
+            <input list="select" name="volID" id="searchinput"/>
+                <datalist id="select">
+                  
+                </datalist>
+                
+            ';
+
+            echo '<input type="submit" name="submit" id="submit" value="Generate Report"/></div></form>';
             ?>
         <p class="reportType">Customize Reports</p>
         <?php
@@ -150,7 +150,7 @@
         );
         sort($districts);
 
-        echo '<form method="post" action="ByDistric_Report.php">';
+        echo '<form method="post" action="ByDistric_Report.php" >';
         echo '<section class = "container">';
         echo '<div class = "dropdown">';
         echo "<select name='district' class='dropdown-select'>";
@@ -210,7 +210,6 @@
             xhr.open("post", "searchVolunteers.php",false);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onload = function(){
-                select.style.display="block";
                 var result = JSON.parse(this.responseText);
                 //clear
                 for(var i in result){
@@ -220,10 +219,9 @@
                     option.value = result[i];
                     option.onclick = function(){
                         input.value = this.value;
-                        select.style.display="none";
                     };
                     try {
-                        select.add(option, null); //Standard
+                        select.appendChild(option); //Standard
                     }catch(error) {
                         select.add(option); // IE only
                     }
@@ -231,5 +229,17 @@
             };
             xhr.send("id="+text);
         };
+    </script>
+    <script>
+        function validate(){
+            for(var i in select.children) {
+                if(input.value == select.children[i].value)
+                    return true;
+            }
+            alert('Invalid Volunteer ID');
+            input.value = "";
+            input.focus();
+            return false;
+        }
     </script>
 </html>

@@ -6,6 +6,7 @@
     </head>
     <body>
         <?php
+        include 'DBConnector.php';
         $attrbt = array(
             'Personal Details',
             'Contact Details',
@@ -17,6 +18,18 @@
             'Feedbacks',
             'Referees'
         );
+        $personalInfo;
+        $contactInfo;
+        $contactNumbers;
+        $profile;
+        $education;
+        $employment;
+        $skills;
+        $availability;
+        $feedbacks;
+        $referees;
+        
+        $con = new DBConnector();
         if (isset($_POST['submit'])) {
             if (!empty($_POST['check_list'])) {
 // Counting number of checked checkboxes.
@@ -25,6 +38,47 @@
 // Loop to store and display values of individual checked checkbox.
                 foreach ($_POST['check_list'] as $selected) {
                     echo "<p>" . $selected . "</p>";
+                    switch ($selected){
+                        case 0:
+                            $query = "SELECT * from volunteer personal;";
+                            $personalInfo = $con->getData($query);
+                            break;
+                        case 1:
+                            $query = "SELECT * from volunteer contact details;";
+                            $contactInfo = $con->getData($query);
+                            $query = "SELECT * from volunteer contact numbers;";
+                            $contactNumbers = $con->getData($query);
+                            break;
+                        case 2:
+                            $query = "SELECT * from profile;";
+                            $profile = $con->getData($query);
+                            break;
+                        case 3:
+                            $query = "SELECT * from education;";
+                            $education = $con->getData($query);
+                            break;
+                        case 4:
+                            $query = "SELECT * from employment;";
+                            $employment = $con->getData($query);
+                            break;
+                        case 5:
+                            $query = "SELECT * from skills;";
+                            $skills = $con->getData($query);
+                            break;
+                        case 6:
+                            $query = "SELECT * from availability;";
+                            $availability = $con->getData($query);
+                            break;
+                        case 7:
+                            $query = "SELECT * from volunteer feedback;";
+                            $feedbacks = $con->getData($query);
+                            break;
+                        case 8:
+                            $query = "SELECT * from referees;";
+                            $referees = $con->getData($query);
+                            break;
+                        
+                    }
                 }
             }
         }

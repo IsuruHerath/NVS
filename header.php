@@ -1,5 +1,4 @@
-<html>
-    <head>
+
         <style>
             Img{
                 display:block;
@@ -21,11 +20,9 @@
                 margin: auto;
             }
         </style>
-    </head>
-    <body>
+    
         <div id="header" class="container">
             <!--<a href="#"><Img src="images/logo.png" alt="logo" width="450" height="150"></a>-->
             <a href="#"><Img src="images/logo.png" alt="logo" width="270" height="90"></a>
         </div>
-    </body>
-</html>
+    

@@ -1,7 +1,7 @@
 <?php
 include 'DBConnector.php';
 $text = $_POST['id'];
-$query = "SELECT id FROM authentication where id like '" . $text . "%'";
+$query = "SELECT id FROM `volunteer personal` where id like '" . $text . "%'";
 $connector = new DBConnector();
 $result = $connector->getData($query);
 
