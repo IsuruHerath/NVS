@@ -3,8 +3,8 @@
             Img{
                 display:block;
                 position:absolute;
-                top:5px;
-                left: 5px;
+                top:10px;
+                left: 10px;
                 margin-left:auto;
                 margin-right:auto;
             }
@@ -23,6 +23,6 @@
     
         <div id="header" class="container">
             <!--<a href="#"><Img src="images/logo.png" alt="logo" width="450" height="150"></a>-->
-            <a href="#"><Img src="images/logo.png" alt="logo" width="270" height="90"></a>
+            <a href="index.php"><Img src="images/logo.png" alt="logo" width="270" height="90"></a>
         </div>
     

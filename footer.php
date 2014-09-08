@@ -8,7 +8,7 @@
             div.fcontainer {
                 background: #394349;
                 height: 10em;
-                position: relative 
+                position: relative; 
             }              /* 1 */
             div.fcontainer p {
                 position: relative;               /* 2 */
